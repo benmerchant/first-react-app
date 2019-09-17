@@ -2,27 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
+
   /** 
    * no need for a constructor as this class does not maintain state
    * it merely displays what the parent tells it to
+   * 
+   * now we don't event need to extend React.Component 
+   * OR be a class. Just define a function that returns
+   * the desired React Element to be displayed
   */
-  render() {
-    return (
-      /** 
-       * 1. onClick() tells React to setup an event listener
-       * 2. when btn clicked, React calls the event handler
-       * 3. event handler calls function which is a prop specified by Board
-       * 4. Square calls this.handleClick(i) when clicked
-       * 5. we havent defined that ^^^^ function yet
-      */
-      <button className="square" onClick={()=>this.props.onClick()}>
-        {this.props.value}
-      </button>
-    );
-  }
-}
-  
+function Square(props) {
+  return (
+    /** 
+     * 1. onClick() tells React to setup an event listener
+     * 2. when btn clicked, React calls the event handler
+     * 3. event handler calls function which is a prop specified by Board
+     * 4. Square calls this.handleClick(i) when clicked
+     * 5. we havent defined that ^^^^ function yet
+    */
+
+    // drop the 'this'... why?
+    // drop the arrow function and () after expression of props.onClick
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
+} 
+
 class Board extends React.Component {
   /**
    * add constructor to initial state to contain an array of 9 nulls
@@ -35,7 +41,7 @@ class Board extends React.Component {
   handleClick(i){
     // creating a copy of squares[] to modify... why?
     const squares = this.state.squares.slice();
-    squares[i] = '╗';
+    squares[i] = '🔲';
     this.setState({squares: squares});
   }
   /** 
