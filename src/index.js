@@ -36,13 +36,13 @@ class Board extends React.Component {
    */
   constructor(props){
     super(props);
-    this.state = {squares: Array(9).fill(null),};
+    this.state = {squares: Array(9).fill(null),xIsNext:true,};
   }
   handleClick(i){
     // creating a copy of squares[] to modify... why?
     const squares = this.state.squares.slice();
-    squares[i] = '🔲';
-    this.setState({squares: squares});
+    squares[i] = this.state.xIsNext ? '🍕' : '🌷';
+    this.setState({squares: squares,xIsNext:!this.state.xIsNext,});
   }
   /** 
    * instruct each Square about its value by passing props
@@ -55,7 +55,7 @@ class Board extends React.Component {
   } // now each square will receive a value prop of either 'X','O',or null
 
   render() {
-    const status = 'Next player: X';
+    const status = `Next player: ${this.state.xIsNext ? '🍕' : '🌷'}`;
 
     return (
       <div>
